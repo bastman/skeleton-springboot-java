@@ -20,7 +20,7 @@ import java.util.Collections;
 @EnableSwagger2()
 public class SwaggerConfiguration {
 
-    public static final String API_ROUTE_SWAGGER_UI = "/swagger-ui.html";
+    public final String API_ROUTE_SWAGGER_UI = "/swagger-ui.html";
 
     private final ApiInfo apiInfo;
 

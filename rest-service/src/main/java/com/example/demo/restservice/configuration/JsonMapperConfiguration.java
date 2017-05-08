@@ -16,7 +16,7 @@ public class JsonMapperConfiguration {
         return defaultMapper();
     }
 
-    public static ObjectMapper defaultMapper() {
+    private static ObjectMapper defaultMapper() {
         return new ObjectMapper()
                 .registerModules(
                         new JavaTimeModule(),
