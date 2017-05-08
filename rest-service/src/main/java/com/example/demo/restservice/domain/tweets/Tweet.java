@@ -15,10 +15,14 @@ data class Tweet(
 
 public class Tweet {
 
-    @NotNull private String id;
-    @NotNull private Instant createdAt;
-    @NotNull private String author;
-    @NotNull private String message;
+    @NotNull
+    private String id;
+    @NotNull
+    private Instant createdAt;
+    @NotNull
+    private String author;
+    @NotNull
+    private String message;
 
     public Tweet(
             @NotNull String id,

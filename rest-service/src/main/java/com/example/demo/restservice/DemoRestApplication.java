@@ -11,13 +11,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class DemoRestApplication{
+public class DemoRestApplication {
     private final Logger LOGGER = AppLogger.get(DemoRestApplication.class);
 
     public static void main(String[] args) {
         new SpringApplicationBuilder()
                 .sources(DemoRestApplication.class)
-                    .web(true)
+                .web(true)
                 .run(args);
     }
 
@@ -26,8 +26,8 @@ public class DemoRestApplication{
             ConfigurableApplicationContext ctx,
             @Value("${app.appName}") String appName
     ) {
-        return (args)->{
-                LOGGER.info("=== init "+appName+" - "+ctx+" =====");
+        return (args) -> {
+            LOGGER.info("=== init " + appName + " - " + ctx + " =====");
         };
     }
 }

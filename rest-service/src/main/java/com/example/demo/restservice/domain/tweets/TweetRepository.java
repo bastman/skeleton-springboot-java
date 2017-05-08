@@ -2,7 +2,6 @@ package com.example.demo.restservice.domain.tweets;
 
 
 import com.example.demo.logging.AppLogger;
-import com.example.demo.restservice.DemoRestApplication;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.slf4j.Logger;
@@ -23,7 +22,7 @@ public class TweetRepository {
 
     public TweetRepository() {
         final Duration expiry = Duration.ofDays(3);
-        this.cache= Caffeine
+        this.cache = Caffeine
                 .newBuilder()
                 .maximumSize(1_000_000)
                 .expireAfterWrite(expiry.getSeconds(), TimeUnit.SECONDS)
@@ -33,12 +32,14 @@ public class TweetRepository {
     final void add(@NotNull Tweet item) {
         Objects.requireNonNull(item);
         cache.put(item.getId(), item);
-        LOGGER.info("add item to repository. itemId="+item.getId());
+        LOGGER.info("add item to repository. itemId=" + item.getId());
     }
-    final Optional<Tweet>get(@NotNull String itemId) {
+
+    final Optional<Tweet> get(@NotNull String itemId) {
         final Tweet tweet = this.cache.getIfPresent(itemId);
         return Optional.ofNullable(tweet);
     }
+
     final Stream<Tweet> getItems() {
         return cache.asMap().values().stream();
     }

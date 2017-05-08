@@ -5,7 +5,6 @@ import com.example.demo.restservice.domain.tweets.TweetService;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 @Component
 public class TweetSubmitRequestHandler {

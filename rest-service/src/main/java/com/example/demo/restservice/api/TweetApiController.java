@@ -19,17 +19,6 @@ public class TweetApiController {
         this.tweetSubmitRequestHandler = tweetSubmitRequestHandler;
     }
 
-    public class ApiRequestFields {
-        static final String TWEET_ID = "id";
-        static final String AUTHOR = "author";
-    }
-
-    public class ApiRoutes {
-        static final String TWEET_SUBMIT = "/api/tweet/submit";
-        public static final String TWEET_GET_BY_ID = "/api/tweet/{"+ApiRequestFields.TWEET_ID+"}";
-        public static final String TWEETS_FIND_BY_AUTHOR = "/api/author/{"+ApiRequestFields.AUTHOR+"}/tweets";
-    }
-
     @RequestMapping(
             value = ApiRoutes.TWEET_SUBMIT,
             method = RequestMethod.POST,
@@ -44,6 +33,17 @@ public class TweetApiController {
             @RequestBody TweetSubmitRequest request
     ) {
         return tweetSubmitRequestHandler.handleRequest(request);
+    }
+
+    public class ApiRequestFields {
+        static final String TWEET_ID = "id";
+        static final String AUTHOR = "author";
+    }
+
+    public class ApiRoutes {
+        public static final String TWEET_GET_BY_ID = "/api/tweet/{" + ApiRequestFields.TWEET_ID + "}";
+        public static final String TWEETS_FIND_BY_AUTHOR = "/api/author/{" + ApiRequestFields.AUTHOR + "}/tweets";
+        static final String TWEET_SUBMIT = "/api/tweet/submit";
     }
 
 }
