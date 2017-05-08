@@ -10,7 +10,7 @@ dependencies {
     compile project(':common')
 
     compile("org.springframework.boot:spring-boot-starter-web") {
-        //exclude module: "org.springframework.boot:spring-boot-starter-tomcat"
+        exclude module: "org.springframework.boot:spring-boot-starter-tomcat"
     }
     compile("org.springframework.boot:spring-boot-starter-undertow")
 

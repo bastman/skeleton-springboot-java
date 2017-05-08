@@ -11,11 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JsonMapperConfiguration {
 
-    @Bean
-    public ObjectMapper objectMapper(){
-        return defaultMapper();
-    }
-
     private static ObjectMapper defaultMapper() {
         return new ObjectMapper()
                 .registerModules(
@@ -27,5 +22,10 @@ public class JsonMapperConfiguration {
                         SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS,
                         SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS
                 );
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return defaultMapper();
     }
 }

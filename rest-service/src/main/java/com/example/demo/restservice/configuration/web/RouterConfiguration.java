@@ -3,7 +3,6 @@ package com.example.demo.restservice.configuration.web;
 import com.example.demo.restservice.configuration.SwaggerConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -18,7 +17,7 @@ public class RouterConfiguration {
     }
 
     @Bean
-    public WebMvcConfigurerAdapter forwardIndexPagesToSwaggerDoc()  {
+    public WebMvcConfigurerAdapter forwardIndexPagesToSwaggerDoc() {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void configurePathMatch(PathMatchConfigurer configurer) {
@@ -28,9 +27,9 @@ public class RouterConfiguration {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/")
-                        .setViewName("redirect:"+API_ROUTE_SWAGGER_UI);
+                        .setViewName("redirect:" + API_ROUTE_SWAGGER_UI);
                 registry.addViewController("/index.html")
-                        .setViewName("redirect:"+API_ROUTE_SWAGGER_UI);
+                        .setViewName("redirect:" + API_ROUTE_SWAGGER_UI);
             }
         };
     }
