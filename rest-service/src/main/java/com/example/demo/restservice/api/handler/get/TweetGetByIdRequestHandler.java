@@ -14,7 +14,7 @@ import java.util.Optional;
 public class TweetGetByIdRequestHandler {
     private TweetService tweetService;
 
-    public TweetGetByIdRequestHandler(TweetService tweetService) {
+    public TweetGetByIdRequestHandler(@NotNull TweetService tweetService) {
         this.tweetService = tweetService;
     }
 

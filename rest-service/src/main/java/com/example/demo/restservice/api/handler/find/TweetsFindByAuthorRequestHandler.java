@@ -10,6 +10,10 @@ import java.util.Arrays;
 public class TweetsFindByAuthorRequestHandler {
     private TweetService tweetService;
 
+    public TweetsFindByAuthorRequestHandler(TweetService tweetService) {
+        this.tweetService = tweetService;
+    }
+
     public @NotNull TweetsCollectionResponse handleRequest(
             @NotNull TweetsFindByAuthorRequest request
     ) {
