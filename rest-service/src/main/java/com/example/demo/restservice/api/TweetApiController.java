@@ -1,9 +1,9 @@
 package com.example.demo.restservice.api;
 
-import com.example.demo.restservice.api.handler.find.common.TweetsCollectionResponse;
 import com.example.demo.restservice.api.handler.find.TweetsFindAllRequestHandler;
 import com.example.demo.restservice.api.handler.find.TweetsFindByAuthorRequest;
 import com.example.demo.restservice.api.handler.find.TweetsFindByAuthorRequestHandler;
+import com.example.demo.restservice.api.handler.find.common.TweetsCollectionResponse;
 import com.example.demo.restservice.api.handler.get.TweetGetByIdRequest;
 import com.example.demo.restservice.api.handler.get.TweetGetByIdRequestHandler;
 import com.example.demo.restservice.api.handler.get.TweetGetByIdResponse;
