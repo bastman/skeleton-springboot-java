@@ -8,14 +8,15 @@ import javax.validation.constraints.Null;
 import java.util.Optional;
 
 public class TweetGetByIdResponse {
-    @Null private Tweet tweet;
+    @Null
+    private Tweet tweet;
 
     public TweetGetByIdResponse(@Null Tweet tweet) {
         this.tweet = tweet;
     }
 
     public static TweetGetByIdResponse of(Optional<Tweet> tweetOptional) {
-        if(tweetOptional.isPresent()) {
+        if (tweetOptional.isPresent()) {
             return new TweetGetByIdResponse(tweetOptional.get());
         }
 
@@ -28,11 +29,11 @@ public class TweetGetByIdResponse {
     }
 
     public ResponseEntity<TweetGetByIdResponse> toResponseEntity() {
-       if(this.tweet==null) {
-           return ResponseEntity
-                   .status(HttpStatus.NOT_FOUND)
-                   .body(this);
-       }
+        if (this.tweet == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(this);
+        }
 
         return ResponseEntity
                 .ok(this);

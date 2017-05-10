@@ -15,8 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
-
 @RestController
 @CrossOrigin(origins = "*")
 public class TweetApiController {
@@ -82,7 +80,7 @@ public class TweetApiController {
             notes = "returns empty collection if nothing found.",
             response = TweetsCollectionResponse.class
     )
-    public TweetsCollectionResponse findAllTweets(){
+    public TweetsCollectionResponse findAllTweets() {
         return tweetsFindAllRequestHandler
                 .handleRequest();
     }
@@ -99,7 +97,7 @@ public class TweetApiController {
     )
     public TweetsCollectionResponse findTweetsByAuthor(
             @PathVariable(name = ApiRequestFields.AUTHOR) String author
-    ){
+    ) {
         return tweetsFindByAuthorRequestHandler
                 .handleRequest(new TweetsFindByAuthorRequest(author));
     }

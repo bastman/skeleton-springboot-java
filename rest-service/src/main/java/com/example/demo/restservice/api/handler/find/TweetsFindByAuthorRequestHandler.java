@@ -4,7 +4,6 @@ import com.example.demo.restservice.domain.tweets.TweetService;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
 
 @Component
 public class TweetsFindByAuthorRequestHandler {
@@ -14,7 +13,8 @@ public class TweetsFindByAuthorRequestHandler {
         this.tweetService = tweetService;
     }
 
-    public @NotNull TweetsCollectionResponse handleRequest(
+    public @NotNull
+    TweetsCollectionResponse handleRequest(
             @NotNull TweetsFindByAuthorRequest request
     ) {
         return TweetsCollectionResponse.of(

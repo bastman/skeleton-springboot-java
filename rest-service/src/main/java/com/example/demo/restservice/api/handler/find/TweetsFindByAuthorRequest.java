@@ -12,6 +12,7 @@ public class TweetsFindByAuthorRequest {
         Objects.requireNonNull(author);
         this.author = author;
     }
+
     @NotNull
     public String getAuthor() {
         return author;
