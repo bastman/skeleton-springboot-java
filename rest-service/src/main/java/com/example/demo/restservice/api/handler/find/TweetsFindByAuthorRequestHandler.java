@@ -1,5 +1,6 @@
 package com.example.demo.restservice.api.handler.find;
 
+import com.example.demo.restservice.api.handler.find.common.TweetsCollectionResponse;
 import com.example.demo.restservice.domain.tweets.TweetService;
 import org.springframework.stereotype.Component;
 

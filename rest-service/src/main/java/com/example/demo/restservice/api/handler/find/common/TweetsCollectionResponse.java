@@ -1,4 +1,4 @@
-package com.example.demo.restservice.api.handler.find;
+package com.example.demo.restservice.api.handler.find.common;
 
 import com.example.demo.restservice.domain.tweets.Tweet;
 
