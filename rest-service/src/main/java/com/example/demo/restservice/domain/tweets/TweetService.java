@@ -33,7 +33,7 @@ public class TweetService {
         return repository.get(tweetId);
     }
 
-    private Stream<Tweet> getItems() {
+    public final Stream<Tweet> getItems() {
         return repository.getItems();
     }
 

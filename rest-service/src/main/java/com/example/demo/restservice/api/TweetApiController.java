@@ -1,6 +1,7 @@
 package com.example.demo.restservice.api;
 
 import com.example.demo.restservice.api.handler.find.TweetsCollectionResponse;
+import com.example.demo.restservice.api.handler.find.TweetsFindAllRequestHandler;
 import com.example.demo.restservice.api.handler.find.TweetsFindByAuthorRequest;
 import com.example.demo.restservice.api.handler.find.TweetsFindByAuthorRequestHandler;
 import com.example.demo.restservice.api.handler.get.TweetGetByIdRequest;
@@ -14,20 +15,25 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+
 @RestController
 @CrossOrigin(origins = "*")
 public class TweetApiController {
     private TweetSubmitRequestHandler tweetSubmitRequestHandler;
     private TweetGetByIdRequestHandler tweetGetByIdRequestHandler;
+    private TweetsFindAllRequestHandler tweetsFindAllRequestHandler;
     private TweetsFindByAuthorRequestHandler tweetsFindByAuthorRequestHandler;
 
     public TweetApiController(
             TweetSubmitRequestHandler tweetSubmitRequestHandler,
             TweetGetByIdRequestHandler tweetGetByIdRequestHandler,
+            TweetsFindAllRequestHandler tweetsFindAllRequestHandler,
             TweetsFindByAuthorRequestHandler tweetsFindByAuthorRequestHandler
     ) {
         this.tweetSubmitRequestHandler = tweetSubmitRequestHandler;
         this.tweetGetByIdRequestHandler = tweetGetByIdRequestHandler;
+        this.tweetsFindAllRequestHandler = tweetsFindAllRequestHandler;
         this.tweetsFindByAuthorRequestHandler = tweetsFindByAuthorRequestHandler;
     }
 
@@ -67,6 +73,21 @@ public class TweetApiController {
     }
 
     @RequestMapping(
+            value = ApiRoutes.TWEETS_FIND_ALL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @ApiOperation(
+            value = "find all tweets",
+            notes = "returns empty collection if nothing found.",
+            response = TweetsCollectionResponse.class
+    )
+    public TweetsCollectionResponse findAllTweets(){
+        return tweetsFindAllRequestHandler
+                .handleRequest();
+    }
+
+    @RequestMapping(
             value = ApiRoutes.TWEETS_FIND_BY_AUTHOR,
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
@@ -90,6 +111,7 @@ public class TweetApiController {
 
     public class ApiRoutes {
         static final String TWEET_GET_BY_ID = "/api/tweet/{" + ApiRequestFields.TWEET_ID + "}";
+        static final String TWEETS_FIND_ALL = "/api/tweet";
         static final String TWEETS_FIND_BY_AUTHOR = "/api/author/{" + ApiRequestFields.AUTHOR + "}/tweets";
         static final String TWEET_SUBMIT = "/api/tweet/submit";
     }
