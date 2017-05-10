@@ -1,22 +1,34 @@
 package com.example.demo.restservice.api;
 
+import com.example.demo.restservice.api.handler.find.TweetsCollectionResponse;
+import com.example.demo.restservice.api.handler.find.TweetsFindByAuthorRequest;
+import com.example.demo.restservice.api.handler.find.TweetsFindByAuthorRequestHandler;
+import com.example.demo.restservice.api.handler.get.TweetGetByIdRequest;
+import com.example.demo.restservice.api.handler.get.TweetGetByIdRequestHandler;
+import com.example.demo.restservice.api.handler.get.TweetGetByIdResponse;
 import com.example.demo.restservice.api.handler.submit.TweetSubmitRequest;
 import com.example.demo.restservice.api.handler.submit.TweetSubmitRequestHandler;
 import com.example.demo.restservice.api.handler.submit.TweetSubmitResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
 public class TweetApiController {
     private TweetSubmitRequestHandler tweetSubmitRequestHandler;
-    //private val tweetGetByIdRequestHandler: TweetGetByIdRequestHandler,
-    //private val tweetsFindByAuthorRequestHandler: TweetsFindByAuthorRequestHandler
+    private TweetGetByIdRequestHandler tweetGetByIdRequestHandler;
+    private TweetsFindByAuthorRequestHandler tweetsFindByAuthorRequestHandler;
 
-
-    public TweetApiController(TweetSubmitRequestHandler tweetSubmitRequestHandler) {
+    public TweetApiController(
+            TweetSubmitRequestHandler tweetSubmitRequestHandler,
+            TweetGetByIdRequestHandler tweetGetByIdRequestHandler,
+            TweetsFindByAuthorRequestHandler tweetsFindByAuthorRequestHandler
+    ) {
         this.tweetSubmitRequestHandler = tweetSubmitRequestHandler;
+        this.tweetGetByIdRequestHandler = tweetGetByIdRequestHandler;
+        this.tweetsFindByAuthorRequestHandler = tweetsFindByAuthorRequestHandler;
     }
 
     @RequestMapping(
@@ -35,14 +47,50 @@ public class TweetApiController {
         return tweetSubmitRequestHandler.handleRequest(request);
     }
 
+
+    @RequestMapping(
+            value = ApiRoutes.TWEET_GET_BY_ID,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @ApiOperation(
+            value = "get tweet by id",
+            notes = "returns nothing if not found.",
+            response = TweetGetByIdResponse.class
+    )
+    ResponseEntity<TweetGetByIdResponse> getTweetById(
+            @PathVariable(name = ApiRequestFields.TWEET_ID) String tweetId
+    ) {
+        return tweetGetByIdRequestHandler
+                .handleRequest(new TweetGetByIdRequest(tweetId))
+                .toResponseEntity();
+    }
+
+    @RequestMapping(
+            value = ApiRoutes.TWEETS_FIND_BY_AUTHOR,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @ApiOperation(
+            value = "find all tweets by author",
+            notes = "returns empty collection if nothing found.",
+            response = TweetsCollectionResponse.class
+    )
+    public TweetsCollectionResponse findTweetsByAuthor(
+            @PathVariable(name = ApiRequestFields.AUTHOR) String author
+    ){
+        return tweetsFindByAuthorRequestHandler
+                .handleRequest(new TweetsFindByAuthorRequest(author));
+    }
+
     public class ApiRequestFields {
         static final String TWEET_ID = "id";
         static final String AUTHOR = "author";
     }
 
     public class ApiRoutes {
-        public static final String TWEET_GET_BY_ID = "/api/tweet/{" + ApiRequestFields.TWEET_ID + "}";
-        public static final String TWEETS_FIND_BY_AUTHOR = "/api/author/{" + ApiRequestFields.AUTHOR + "}/tweets";
+        static final String TWEET_GET_BY_ID = "/api/tweet/{" + ApiRequestFields.TWEET_ID + "}";
+        static final String TWEETS_FIND_BY_AUTHOR = "/api/author/{" + ApiRequestFields.AUTHOR + "}/tweets";
         static final String TWEET_SUBMIT = "/api/tweet/submit";
     }
 
